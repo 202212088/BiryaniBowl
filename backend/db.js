@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const mongoURL =
-  "mongodb+srv://aakash:aakash@cluster0.ft18gyk.mongodb.net/goFood";
+  "db_url";
 
 async function dbConnect() {
   mongoose
