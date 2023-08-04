@@ -1,45 +1,62 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const AdminNavBar = () => {
+  const [isNavExpanded, setIsNavExpanded] = useState(false);
   return (
-    <nav className="mb-5 flex flex-wrap items-center justify-between w-full text-lg text-gray-700">
-      <img
-        src="../images/logo.jpg"
-        className="mt-6 ml-20 w-60 pt-3 hover:scale-110"
-        alt="logo"
-      />
-      <ul className="px-28 py-4 flex space-x-6 justify-end">
-        <Link to="/userlist">
-          <li className="cursor-pointer mt-14 font-bold text-xl hover:scale-110">
-            User List
-          </li>
-        </Link>
+    <div className="mt-5 flex flex-wrap items-center justify-between w-full py-4 text-lg text-gray-700 bg-white">
+      <div>
         <Link to="/itemlist">
-          <li className="cursor-pointer mt-14 font-bold text-xl hover:scale-110">
-            Biryani List
-          </li>
+          <img
+            src="/images/logo.jpg"
+            className="ml-20 w-60 pt-5 hover:scale-110"
+            alt="logo"
+          />
         </Link>
-        <Link to="/additem">
-          <li className="cursor-pointer mt-14 font-bold text-xl hover:scale-110">
-            Add Items
-          </li>
-        </Link>
-        <Link to="/orders">
-          <li className="cursor-pointer mt-14 font-bold text-xl hover:scale-110">
-            Order List
-          </li>
-        </Link>
-        <Link to="/">
-          <li
-            className="cursor-pointer mt-14 font-bold text-xl hover:scale-110"
-            // onClick={(global.flag = false)}
+      </div>
+
+      <img
+        className="w-10 mr-20 cursor-pointer md:hidden lg:hidden"
+        src="/images/three.png"
+        onClick={() => setIsNavExpanded(!isNavExpanded)}
+        id="menu-button"
+        alt="hamburger"
+      />
+
+      <div
+        className={`w-full ${
+          isNavExpanded ? "hidden" : "block"
+        } md:flex md:items-center md:w-auto`}
+        id="menu"
+      >
+        <ul className="pt-4 text-gray-700 font-bold md:flex md:justify-between md:pt-0">
+          <Link
+            className="md:p-4 pl-24 block lg:hover:scale-105 "
+            to="/userlist"
           >
-            Log out
-          </li>
-        </Link>
-      </ul>
-    </nav>
+            <li>User List</li>
+          </Link>
+          <Link
+            className="md:p-4 pl-24 block lg:hover:scale-105 "
+            to="/itemlist"
+          >
+            <li>Biryani List</li>
+          </Link>
+          <Link
+            className="md:p-4 pl-24 block lg:hover:scale-105 "
+            to="/additem"
+          >
+            <li>Add Items</li>
+          </Link>
+          <Link className="md:p-4 pl-24 block lg:hover:scale-105 " to="/orders">
+            <li>Order List</li>
+          </Link>
+          <Link className="md:p-4 pl-24 mr-20 block lg:hover:scale-105 " to="/">
+            <li>Log out</li>
+          </Link>
+        </ul>
+      </div>
+    </div>
   );
 };
 

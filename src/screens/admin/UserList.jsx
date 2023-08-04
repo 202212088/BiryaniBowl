@@ -67,6 +67,12 @@ const UserList = () => {
                       scope="col"
                       className="text-base font-medium text-white px-6 py-3"
                     >
+                      Address
+                    </th>
+                    <th
+                      scope="col"
+                      className="text-base font-medium text-white px-6 py-3"
+                    >
                       Delete
                     </th>
                   </tr>
@@ -80,6 +86,9 @@ const UserList = () => {
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {data.email}
+                        </td>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                          {data.address}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           <button className="rounded inline-flex items-center hover:scale-110">

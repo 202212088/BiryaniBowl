@@ -19,7 +19,7 @@ const ItemList = () => {
   useEffect(() => {
     loadData();
   }, []);
-  console.log("item", item);
+  // console.log("item", item);
   const handleDelete = async (name) => {
     const res = await fetch("http://localhost:5000/api/deleteitem", {
       method: "POST",

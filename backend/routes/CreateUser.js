@@ -78,4 +78,33 @@ router.post("/additems", async (req, res) => {
   }
 });
 
+router.post("/address", async (req, res) => {
+  try {
+    await user.findOneAndUpdate(
+      { email: req.body.email },
+      { address: req.body.address }
+    );
+    res.json({ sucess: true });
+  } catch (error) {
+    console.log(error);
+    res.json({ sucess: false });
+  }
+});
+
+router.post("/getAddress", async (req, res) => {
+  try {
+    let myData = await user.findOne({ email: req.body.email });
+    let { address } = myData;
+    // console.log("address", address);
+    if (address === "") {
+      res.status(403).json({ sucess: false });
+    } else {
+      res.status(200).json({ sucess: true });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ sucess: false });
+  }
+});
+
 module.exports = router;

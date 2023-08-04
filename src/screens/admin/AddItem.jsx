@@ -14,7 +14,7 @@ const AddItem = () => {
     setItem({ ...item, [e.target.name]: e.target.value });
   };
 
-  console.log(item.type);
+  // console.log(item.type);
 
   // function convertToBase64(file) {
   //   return new Promise((resolve, reject) => {
@@ -42,7 +42,7 @@ const AddItem = () => {
     })
       .then((res) => res.json())
       .then(async (data) => {
-        console.log(data.url);
+        // console.log(data.url);
 
         const response = await fetch("http://localhost:5000/api/additems", {
           method: "POST",
@@ -157,7 +157,7 @@ const AddItem = () => {
                 onChange={onChange}
               />
             </div>
-            <div className="mt-8">
+            <div className="button-87">
               <input
                 type="submit"
                 name="btnadd"

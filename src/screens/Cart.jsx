@@ -1,11 +1,45 @@
-import React from "react";
+import React, { useState } from "react";
 import { useCart, useDispatchCart } from "../components/ContextReducer";
 import { toast } from "react-toastify";
 import Navbar from "../components/Navbar";
+import { useEffect } from "react";
+import Modal from "../modal";
+import Address from "./Address";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
+  const [add, setAdd] = useState(false);
+  const [showAddress, SetShowAddress] = useState(false);
   let data = useCart();
   let dispatch = useDispatchCart();
+
+  const getAddress = async () => {
+    let userEmail = localStorage.getItem("userEmail");
+    try {
+      const addressUrl = "http://localhost:5000/api/getAddress";
+      let res = await fetch(addressUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: userEmail,
+        }),
+      });
+      res = await res.json();
+      if (res?.sucess) {
+        setAdd(true);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAddress();
+  }, []);
+
   if (data.length === 0) {
     return (
       <>
@@ -54,8 +88,9 @@ const Cart = () => {
             });
 
             if (response.status === 200) {
-              toast.success("Order Placed Successfully!");
+              toast.success("Order Placed Successfully!", { autoClose: 1000 });
               dispatch({ type: "DROP" });
+              navigate("/myorder");
             }
           }
         } catch (error) {
@@ -87,6 +122,10 @@ const Cart = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleAddress = () => {
+    SetShowAddress(true);
   };
 
   let totalPrice = data.reduce((total, food) => total + food.price, 0);
@@ -195,19 +234,37 @@ const Cart = () => {
                   Total Price: {totalPrice}/-
                 </h1>
               </div>
-              <div>
+
+              {add ? (
+                <div>
+                  <button
+                    className="rounded-md ml-3 mt-3 bg-black text-white px-2 py-2 hover:scale-105"
+                    onClick={handleCheckOut}
+                  >
+                    {" "}
+                    Check Out{" "}
+                  </button>
+                </div>
+              ) : (
                 <button
                   className="rounded-md ml-3 mt-3 bg-black text-white px-2 py-2 hover:scale-105"
-                  onClick={handleCheckOut}
+                  onClick={handleAddress}
                 >
                   {" "}
-                  Check Out{" "}
+                  Add Address{" "}
                 </button>
-              </div>
+              )}
             </div>
           </div>
         </div>
       </div>
+      {showAddress ? (
+        <Modal onClose={() => SetShowAddress(false)}>
+          <Address></Address>
+        </Modal>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

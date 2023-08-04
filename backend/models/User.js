@@ -14,6 +14,10 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  address: {
+    type: String,
+    default: "",
+  },
   date: {
     type: Date,
     default: Date.now,

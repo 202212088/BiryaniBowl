@@ -22,7 +22,7 @@ const Signup = () => {
       initialValues: initialValues,
       validationSchema: loginSchema,
       onSubmit: (values) => {
-        console.log(values);
+        // console.log(values);
       },
     });
 
@@ -42,7 +42,7 @@ const Signup = () => {
       }),
     });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     if (!json.sucess) {
       toast.error("enter valid credentials", { autoClose: 1000 });
     } else {

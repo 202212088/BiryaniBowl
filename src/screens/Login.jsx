@@ -20,7 +20,7 @@ const Login = () => {
       initialValues: initialValues,
       validationSchema: loginSchema,
       onSubmit: (values) => {
-        console.log(values);
+        // console.log(values);
       },
     });
 
